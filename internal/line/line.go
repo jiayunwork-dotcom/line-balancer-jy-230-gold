@@ -144,6 +144,9 @@ func ParseTasks(r io.Reader) ([]Task, error) {
 		if err != nil {
 			return nil, fmt.Errorf("line %d: invalid seconds %q", ri+1, rec[1])
 		}
+		if t < 0 {
+			return nil, fmt.Errorf("line %d: negative time %v", ri+1, t)
+		}
 		tasks = append(tasks, Task{Name: name, Time: t})
 	}
 	if len(tasks) == 0 {
